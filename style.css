@@ -1025,11 +1025,163 @@ tr:last-child td {
 
 /* ===== الفوتر ===== */
 footer {
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
   color: rgba(255, 255, 255, 0.85);
-  padding: 2.5rem 1.5rem;
+  padding: 3rem 1.5rem 2.5rem;
   text-align: center;
   margin-top: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent));
+}
+
+footer::after {
+  content: '';
+  position: absolute;
+  bottom: -50%;
+  left: -10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(245, 166, 35, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-brand {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+}
+
+.footer-brand .footer-icon {
+  display: inline-block;
+  margin-left: 0.5rem;
+}
+
+.footer-tagline {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.5rem;
+}
+
+.footer-divider {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  border-radius: 3px;
+  margin: 0 auto 1.5rem;
+}
+
+.footer-credit {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 0.5rem;
+  line-height: 1.8;
+}
+
+.footer-credit strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.footer-credit .credit-icon {
+  display: inline-block;
+  margin: 0 0.25rem;
+}
+
+.footer-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0.75rem 0 1rem;
+  transition: var(--transition);
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.footer-phone:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.footer-phone .phone-icon {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.copy-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  padding: 0;
+  line-height: 1;
+}
+
+.copy-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.1);
+}
+
+.footer-sadaqah {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 0.5rem;
+  line-height: 1.8;
+}
+
+.footer-sadaqah .sadaqah-icon {
+  display: inline-block;
+  margin: 0 0.25rem;
+}
+
+.footer-learn {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1.5rem;
+}
+
+.footer-copyright {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.25rem;
+  margin-top: 1rem;
 }
 
 footer p {
@@ -1112,16 +1264,16 @@ h3[id] {
 .back-to-top {
   position: fixed;
   bottom: 2rem;
-  left: 2rem;
-  width: 50px;
-  height: 50px;
-  background: var(--primary);
+  right: 2rem;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
   color: #fff;
-  border: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   font-size: 1.5rem;
   cursor: pointer;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 8px 24px rgba(10, 61, 98, 0.3);
   opacity: 0;
   visibility: hidden;
   transition: var(--transition);
@@ -1129,6 +1281,7 @@ h3[id] {
   display: flex;
   align-items: center;
   justify-content: center;
+  backdrop-filter: blur(4px);
 }
 
 .back-to-top.visible {
@@ -1137,8 +1290,10 @@ h3[id] {
 }
 
 .back-to-top:hover {
-  background: var(--accent);
-  transform: translateY(-4px);
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  border-color: var(--accent);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(245, 166, 35, 0.4);
 }
 
 /* ===== مساعدات ===== */
@@ -1249,4 +1404,81 @@ h3[id] {
   body {
     background: #fff;
   }
+}
+
+/* ============================================
+   حماية الموقع
+   © 2026 Omar Kandil — 0102691400
+   جميع الحقوق محفوظة
+   ============================================ */
+
+/* منع تحديد النص */
+* {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+}
+
+/* منع سحب الصور */
+img {
+  -webkit-user-drag: none !important;
+  -khtml-user-drag: none !important;
+  -moz-user-drag: none !important;
+  -o-user-drag: none !important;
+  user-drag: none !important;
+  pointer-events: none !important;
+}
+
+/* السماح بالتفاعل مع الروابط والأزرار */
+a, button {
+  pointer-events: auto !important;
+}
+
+/* علامة مائية */
+#site-watermark {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(10, 61, 98, 0.8);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  z-index: 9999;
+  pointer-events: none;
+  letter-spacing: 0.5px;
+}
+
+/* تنبيه الحماية */
+#protection-alert {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #c0392b;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  z-index: 99999;
+  box-shadow: 0 4px 20px rgba(192, 57, 43, 0.4);
+  animation: protectionFadeIn 0.3s ease;
+  text-align: center;
+  max-width: 90%;
+}
+
+@keyframes protectionFadeIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes protectionFadeOut {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to { opacity: 0; transform: translateX(-50%) translateY(-20px); }
 }
