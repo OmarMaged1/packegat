@@ -112,7 +112,9 @@ function initSliders() {
     }
 
     function updateSlider() {
-      track.style.transform = `translateX(${currentIndex * 100}%)`;
+      const viewport = slider.querySelector('.slider-viewport');
+      const slideWidth = viewport ? viewport.offsetWidth : track.offsetWidth / totalSlides;
+      track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
       slider.querySelectorAll('.slider-dot').forEach((dot, i) => {
         dot.classList.toggle('active', i === currentIndex);
       });
@@ -179,6 +181,11 @@ function initSliders() {
           openLightbox(img.src, captionText, slider);
         });
       }
+    });
+
+    // إعادة حساب الموضع عند تغيير حجم الشاشة
+    window.addEventListener('resize', () => {
+      updateSlider();
     });
   });
 }

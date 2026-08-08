@@ -731,8 +731,10 @@ tr:last-child td {
 .slider-viewport {
   position: relative;
   width: 100%;
-  height: 420px;
+  aspect-ratio: 16 / 9;
+  max-height: 500px;
   overflow: hidden;
+  background: var(--primary-dark);
 }
 
 .slider-track {
@@ -743,15 +745,19 @@ tr:last-child td {
 
 .slider-slide {
   position: relative;
-  min-width: 100%;
+  flex: 0 0 100%;
+  width: 100%;
   height: 100%;
-  flex-shrink: 0;
+  min-width: 100%;
+  overflow: hidden;
+  background: var(--primary-dark);
 }
 
 .slider-slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
   cursor: zoom-in;
 }
@@ -1303,6 +1309,11 @@ h3[id] {
 
 /* ===== تجاوب ===== */
 @media (max-width: 768px) {
+  .slider-viewport {
+    aspect-ratio: 4 / 3;
+    max-height: 400px;
+  }
+
   .nav-toggle {
     display: block;
   }
