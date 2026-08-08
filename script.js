@@ -140,15 +140,50 @@ function initSliders() {
     if (prevBtn) prevBtn.addEventListener('click', prevSlide);
 
     // التشغيل التلقائي
-    let autoPlayInterval = setInterval(nextSlide, 4000);
+    let autoPlayInterval = null;
 
-    function resetAutoPlay() {
-      clearInterval(autoPlayInterval);
+    function startAutoPlay() {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
       autoPlayInterval = setInterval(nextSlide, 4000);
     }
 
+    function stopAutoPlay() {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+        autoPlayInterval = null;
+      }
+    }
+
+    function resetAutoPlay() {
+      stopAutoPlay();
+      startAutoPlay();
+    }
+
+    // تحضير الصور قبل بدء التشغيل التلقائي حتى لا تظهر الشرائح فارغة
+    // (الصور كبيرة الحجم وقد تستغرق تحميلاً)، وإعادة حساب الموضع بعد التحميل
+    let imagesReady = 0;
+    const sliderImgs = slider.querySelectorAll('.slider-slide img');
+    const fallbackStart = setTimeout(startAutoPlay, 2000); // بدء احتياطي بعد ثانيتين
+
+    sliderImgs.forEach(img => {
+      img.addEventListener('load', () => {
+        imagesReady++;
+        updateSlider(); // إعادة ضبط العرض بعد تحميل الصورة
+        if (imagesReady === 1) {
+          clearTimeout(fallbackStart);
+          startAutoPlay();
+        }
+      });
+      img.addEventListener('error', () => {
+        // إخفاء الصورة المعطوبة وإظهار خلفية بديلة واضحة بدلاً من صفحة بيضاء
+        const slide = img.closest('.slider-slide');
+        if (slide) slide.classList.add('img-missing');
+        img.remove();
+      });
+    });
+
     // إيقاف التشغيل التلقائي عند المرور بالماوس
-    slider.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+    slider.addEventListener('mouseenter', stopAutoPlay);
     slider.addEventListener('mouseleave', resetAutoPlay);
 
     // دعم اللمس (Swipe) للموبايل
